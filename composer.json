@@ -1,0 +1,35 @@
+{
+    "name": "tastaturberuf/contao-entity-attributes-bundle",
+    "description": "Use PHP 8+ Attributes to configure the DCA",
+    "type": "contao-bundle",
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Daniel Jahnsmüller",
+            "homepage": "https://tastaturberuf.de"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "contao/core-bundle": "^4.9",
+        "doctrine/annotations": "^1.11",
+        "contao-community-alliance/meta-palettes": "^2.0",
+        "codefog/contao-haste": "^4.24"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tastaturberuf\\ContaoEntityAttributesBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tastaturberuf\\ContaoEntityAttributesBundle\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "contao-manager-plugin": "Tastaturberuf\\ContaoEntityAttributesBundle\\ContaoManager\\Plugin"
+    }
+}

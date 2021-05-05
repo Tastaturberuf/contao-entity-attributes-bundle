@@ -1,0 +1,30 @@
+services:
+
+    _instanceof:
+
+        Tastaturberuf\ContaoEntityAttributesBundle\EventListener\AbstractAttributeListener:
+            autowire: true
+            tags:
+                - { name: kernel.event_listener, event: Tastaturberuf\ContaoEntityAttributesBundle\Event\ParseAttributesEvent }
+
+
+    Tastaturberuf\ContaoEntityAttributesBundle\EventListener\DataContainerListener:
+        arguments:
+            - !tagged_iterator entity.datacontainer
+            - '@doctrine.orm.entity_manager'
+            - '@event_dispatcher'
+        tags:
+            # priority must greater then 0 because of the metapalettes listener
+            - { name: contao.hook, hook: loadDataContainer, priority: 1000 }
+
+    Tastaturberuf\ContaoEntityAttributesBundle\EventListener\AttributeDataContainerListener: ~
+    Tastaturberuf\ContaoEntityAttributesBundle\EventListener\AttributeConfigListener: ~
+    Tastaturberuf\ContaoEntityAttributesBundle\EventListener\AttributeEvaluationListener: ~
+    Tastaturberuf\ContaoEntityAttributesBundle\EventListener\AttributeFieldListener: ~
+    Tastaturberuf\ContaoEntityAttributesBundle\EventListener\AttributeOperationListener: ~
+    Tastaturberuf\ContaoEntityAttributesBundle\EventListener\AttributeGlobalOperationListener: ~
+    # must stay before PaletteListener
+    Tastaturberuf\ContaoEntityAttributesBundle\EventListener\AttributePalettesListener: ~
+    Tastaturberuf\ContaoEntityAttributesBundle\EventListener\AttributePaletteListener: ~
+    Tastaturberuf\ContaoEntityAttributesBundle\EventListener\AttributeLabelListener: ~
+
