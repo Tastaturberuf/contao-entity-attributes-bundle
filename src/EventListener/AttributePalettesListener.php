@@ -35,8 +35,6 @@ class AttributePalettesListener extends AbstractAttributeListener
                     $this->getLegendsAsArrays($palettes->legends)
                 );
             }
-
-            dump($GLOBALS['TL_DCA']);
         }
     }
 
