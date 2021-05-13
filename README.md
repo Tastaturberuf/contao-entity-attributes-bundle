@@ -73,6 +73,7 @@ class myEntity
 ## Good to know
 
 - `Field::$exclude` is default `true`
+- `Sorting::$panelLayout` default is `'filter;sort,search,limit'`
 - don't use the `$__custom_properties` parameter, just write your [custom properties](#Custom properties).
 
 ## To do
