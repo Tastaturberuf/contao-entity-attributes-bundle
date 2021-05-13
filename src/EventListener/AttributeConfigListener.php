@@ -25,7 +25,10 @@ class AttributeConfigListener extends AbstractAttributeListener
     {
         foreach ($event->getReflection()->getAttributes(Config::class) as $attribute)
         {
-            $GLOBALS['TL_DCA'][$event->getTable()]['config'] = \array_replace_recursive($GLOBALS['TL_DCA'][$event->getTable()]['config'] ?? [], (array) $attribute->newInstance());
+            $GLOBALS['TL_DCA'][$event->getTable()]['config'] = \array_replace_recursive(
+                $GLOBALS['TL_DCA'][$event->getTable()]['config'] ?? [],
+                get_object_vars($attribute->newInstance())
+            );
         }
     }
 

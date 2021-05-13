@@ -24,7 +24,10 @@ class AttributeDataContainerListener extends AbstractAttributeListener
     {
         foreach ($event->getReflection()->getAttributes(DataContainer::class) as $attribute)
         {
-            $GLOBALS['TL_DCA'][$event->getTable()] = \array_replace_recursive($GLOBALS['TL_DCA'][$event->getTable()] ?? [], (array) $attribute->newInstance());
+            $GLOBALS['TL_DCA'][$event->getTable()] = \array_replace_recursive(
+                $GLOBALS['TL_DCA'][$event->getTable()] ?? [],
+                get_object_vars($attribute->newInstance())
+            );
         }
     }
 

@@ -29,7 +29,7 @@ class AttributeEvaluationListener extends AbstractAttributeListener
                 $GLOBALS['TL_DCA'][$event->getTable()]['fields'][$this->getName($property)]['eval'] =
                     \array_merge_recursive(
                         $GLOBALS['TL_DCA'][$event->getTable()]['fields'][$this->getName($property)]['eval'] ?? [],
-                        (array) $attribute->newInstance()
+                        get_object_vars($attribute->newInstance())
                     )
                 ;
             }
