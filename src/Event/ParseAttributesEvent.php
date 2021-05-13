@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Tastaturberuf\ContaoEntityAttributesBundle\Event;
 
 
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use JetBrains\PhpStorm\Pure;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -22,14 +23,23 @@ use Symfony\Contracts\EventDispatcher\Event;
 class ParseAttributesEvent extends Event
 {
 
-    public function __construct(private \ReflectionClass $reflection, private string $table)
+    public function __construct(
+        private ClassMetadataInfo $classMetadata,
+        private string $table
+    )
     {
+    }
+
+
+    public function getClassMetaData(): ClassMetadataInfo
+    {
+        return $this->classMetadata;
     }
 
 
     public function getReflection(): \ReflectionClass
     {
-        return $this->reflection;
+        return $this->classMetadata->getReflectionClass();
     }
 
 
@@ -39,7 +49,7 @@ class ParseAttributesEvent extends Event
     #[Pure]
     public function getProperties(): array
     {
-        return $this->reflection->getProperties();
+        return $this->classMetadata->getReflectionClass()->getProperties();
     }
 
 

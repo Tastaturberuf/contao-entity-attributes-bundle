@@ -43,17 +43,7 @@ class DataContainerListener
             return;
         }
 
-        $entity = $this->entities[$table];
-
-        try
-        {
-            $reflection = new \ReflectionClass($entity);
-        } catch (\ReflectionException $e)
-        {
-            return;
-        }
-
-        $this->eventDispatcher->dispatch(new ParseAttributesEvent($reflection, $table));
+        $this->eventDispatcher->dispatch(new ParseAttributesEvent($this->entities[$table], $table));
     }
 
 
@@ -61,9 +51,11 @@ class DataContainerListener
     {
         foreach ($entities as $entity)
         {
-            if ($table = $this->entityManager->getClassMetadata($entity::class)->getTableName() )
+            $classMetaData = $this->entityManager->getClassMetadata($entity::class);
+
+            if ( $table = $classMetaData->getTableName() )
             {
-                $this->entities[$table] = $entity;
+                $this->entities[$table] = $classMetaData;
             }
         }
     }
