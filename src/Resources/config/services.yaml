@@ -27,4 +27,5 @@ services:
     Tastaturberuf\ContaoEntityAttributesBundle\EventListener\AttributePalettesListener: ~
     Tastaturberuf\ContaoEntityAttributesBundle\EventListener\AttributePaletteListener: ~
     Tastaturberuf\ContaoEntityAttributesBundle\EventListener\AttributeLabelListener: ~
+    Tastaturberuf\ContaoEntityAttributesBundle\EventListener\AttributeListingListener: ~
 
