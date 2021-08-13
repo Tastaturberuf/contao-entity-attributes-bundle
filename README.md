@@ -2,19 +2,36 @@
 
 ## Usage:
 
+Set the mapping type to `attribute` and define where your entities are.
+```yaml
+# config/services.yaml
+
+doctrine:
+    orm:
+        mappings:
+            App:
+                type: attribute
+                dir: '%kernel.project_dir%/src/Entity'
+                prefix: 'App\Entity'
+```
+
 Tag your entities with `entity.datacontainer`.
+```yaml
+# config/services.yaml
+
+App\Entity\:
+    resource: '../src/Entity/'
+    tags: ['entity.datacontainer']
+```
 
 ### Minimal configuration
+
 ```php
 use Doctrine\ORM\Mapping as ORM;
 use Tastaturberuf\ContaoEntityAttributesBundle\Attribute as DCA;
 
-/**
- * @ORM\Entity 
- * @ORM\Table("tl_my_table_name") 
- */
-#[ORM\Entity]                    #<-- not supported by Contao yet
-#[ORM\Table('tl_my_table_name')] #<-- not supported by Contao yet
+#[ORM\Entity]
+#[ORM\Table('tl_my_table_name')]
 #[DCA\DataContainer]
 class MyEntity
 {
@@ -28,12 +45,8 @@ class MyEntity
 use Doctrine\ORM\Mapping as ORM;
 use Tastaturberuf\ContaoEntityAttributesBundle\Attribute as DCA;
 
-/**
- * @ORM\Entity
- * @ORM\Table('my_entity')  
- */
-#[ORM\Entity]             #<-- not supported by Contao yet
-#[ORM\Table('my_entity')] #<-- not supported by Contao yet
+#[ORM\Entity]         
+#[ORM\Table('my_entity')]
 #[DCA\DataContainer]
 #[DCA\Label(fields: ['id', 'tstamp', 'name', 'alias'], showColumns: true)]
 #[DCA\Palettes(legends: ['title', 'config', 'custom'])]
@@ -47,10 +60,7 @@ class MyEntity
     #[DCA\Field(exclude: false)]
     private int $id;
 
-    /**
-     * @ORM\Column('my_custom_name', nullable=true)  
-     */
-    #[ORM\Column('my_custom_name', nullable: true)] #<-- not supported by Contao yet
+    #[ORM\Column('my_custom_name', nullable: true)]
     #[DCA\Field(search: true, sorting: true)]
     #[DCA\Palette('title')]
     // there are more Attributes available
