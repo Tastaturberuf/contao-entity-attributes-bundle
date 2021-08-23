@@ -74,16 +74,9 @@ class Evaluation extends AbstractAttribute
         public string $placeholder = '',
         public bool   $isHexColor = false,
         public array  $metaFields = [],
-
-        protected bool  $w50 = true,
                   array ...$__custom_properties
     )
     {
-        if ( $this->w50 )
-        {
-            $this->tl_class .= ' w50';
-        }
-
         $this->parseCustomProperties($__custom_properties);
     }
 

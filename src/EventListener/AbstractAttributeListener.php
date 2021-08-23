@@ -14,16 +14,18 @@ declare(strict_types=1);
 namespace Tastaturberuf\ContaoEntityAttributesBundle\EventListener;
 
 
-use Doctrine\Common\Annotations\Reader;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\OneToMany;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Tastaturberuf\ContaoEntityAttributesBundle\Event\ParseAttributesEvent;
 
+
 abstract class AbstractAttributeListener
 {
 
-    public function __construct(private Reader $annotationReader, private ParameterBagInterface $parameterBag)
+    public function __construct(
+        private ParameterBagInterface $parameterBag
+    )
     {
     }
 
@@ -31,9 +33,14 @@ abstract class AbstractAttributeListener
     abstract public function __invoke(ParseAttributesEvent $event): void;
 
 
+    /**
+     * @param \ReflectionProperty $property
+     *
+     * @return string
+     * @todo check for @Column, @JoinColumn, @OneToOne, @OneToMany, @ManyToOne, @ManyToMany
+     */
     protected function getName(\ReflectionProperty $property): string
     {
-
         foreach ( $property->getAttributes(OneToMany::class) as $attribute )
         {
             $oneToMany = $attribute->newInstance();
@@ -53,26 +60,6 @@ abstract class AbstractAttributeListener
         }
 
         // fallback to Doctrine Annotations
-
-        /** @var OneToMany $annotation */
-        if ( null !== ($annotation = $this->annotationReader->getPropertyAnnotation($property, OneToMany::class)) )
-        {
-            trigger_deprecation('PACKAGE NAME', 'Version NUMBERS', 'Use PHP 8 Attributes!');
-
-            //@todo get fieldnames from Doctrine ORM
-        }
-
-
-        /** @var Column $annotation */
-        if ( null !== ($annotation = $this->annotationReader->getPropertyAnnotation($property, Column::class)) )
-        {
-            trigger_deprecation('PACKAGE NAME', 'Version NUMBERS', 'Use PHP 8 Attributes!');
-
-            if ( is_string($annotation->name) )
-            {
-                return $annotation->name;
-            }
-        }
 
         return $property->name;
     }

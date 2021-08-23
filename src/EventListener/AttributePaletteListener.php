@@ -26,7 +26,6 @@ class AttributePaletteListener extends AbstractAttributeListener
         {
             foreach ($property->getAttributes(Palette::class) as $attribute)
             {
-                dump($attribute->getArguments());
                 /** @var Palette $palette */
                 $palette = $attribute->newInstance();
                 $this->createPalette($palette, $property, $event->getTable());

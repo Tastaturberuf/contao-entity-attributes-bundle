@@ -45,14 +45,19 @@ class AttributeFieldListener extends AbstractAttributeListener
 
     private function getDefaultFromColumnAttribute(Field $field, \ReflectionProperty $property): void
     {
-        foreach ($property->getAttributes(Column::class) as $columnAttribute)
+        foreach ($property->getAttributes(Column::class) as $attribute)
         {
             /** @var Column $column */
-            $column = $columnAttribute->newInstance();
+            $column = $attribute->newInstance();
 
             if ( key_exists('default', $column->options) )
             {
                 $field->default = $column->options['default'];
+            }
+
+            if ( $field->default === null && !$column->nullable )
+            {
+                unset($field->default);
             }
         }
     }
