@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Tastaturberuf\ContaoEntityAttributesBundle\Attribute;
 
 
-#[\Attribute]
+#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 class GlobalOperation extends AbstractAttribute
 {
 
